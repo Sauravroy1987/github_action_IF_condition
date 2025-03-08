@@ -82,7 +82,7 @@ jobs:
         run: echo "Deploying..."
   report:
     runs-on: ubuntu-latest
-    needs: [lint, deploy]
+    needs: [test] #report job dependents on test job. With 'if' condition failure(), report job will only run is test job failed.
     if: failure()
     steps:
       - name: Output Information
