@@ -37,8 +37,10 @@ jobs:
         run: npm run test
       - name: Upload test report
         if:
-          ${{ steps.run-app-tests.outcome == 'failure' }} #steps, outcome is keyword. steps.<ID OF STEP>.outcome.
+          failure() && ${{ steps.run-app-tests.outcome == 'failure' }} #steps, outcome is keyword. steps.<ID OF STEP>.outcome.
           #IF step 'run-app-tests' failed, then only 'Upload test report' step execute
+          #failure() -> Return true when any previous step failed.
+          #failure() && ${{ steps.run-app-tests.outcome == 'failure' }} -> Condition will true, if any previous step failed and particular step run-app-tests failed.
         uses: actions/upload-artifact@v4
         with:
           name: test-report
