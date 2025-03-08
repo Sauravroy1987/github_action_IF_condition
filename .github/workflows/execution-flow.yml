@@ -83,6 +83,7 @@ jobs:
   report:
     runs-on: ubuntu-latest
     needs: [test] #report job dependents on test job. With 'if' condition failure(), report job will only run is test job failed.
+    #report job will not run, if test job success.
     if: failure()
     steps:
       - name: Output Information
